@@ -1,4 +1,4 @@
-A discord bot that announces general election results, as they come in.
+A discord bot that announces UK general election results, as they come in.
 
 Announces to a single channel id from a .env
 
