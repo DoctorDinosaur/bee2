@@ -9,7 +9,7 @@ const __dirname = import.meta.dirname;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const channelids = process.env.CHANNEL_IDS.split(",");
 
-export async function sendToNotificationChannels({description = '', author = '', title = '', titleUrl = '', color = '', footer = ''}) {
+export async function sendToNotificationChannels({description = '', author = '', title = '', titleUrl = '', color = '', footer = '', fields = []}) {
 	function convertColorStringToInt(colorString) {
 		if (colorString.startsWith('#')) {
 		  colorString = colorString.substring(1);
@@ -32,7 +32,8 @@ export async function sendToNotificationChannels({description = '', author = '',
 				author: {name: author || null},
 				description: description || null,
 				footer: {text: footer || null},
-				timestamp: new Date()
+				timestamp: new Date(),
+				fields: fields || []
 			};
 			await channelObj.send({embeds: [embed]});
 
