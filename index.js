@@ -7,14 +7,16 @@ import "dotenv/config";
 
 const __dirname = import.meta.dirname;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
-const channelid = process.env.CHANNEL_ID;
+const channelids = process.env.CHANNEL_IDS.split(",");
 
 export async function sendToNotificationChannels(message) {	
-	try {
-		const channelObj = await client.channels.fetch(channelid);
-		await channelObj.send(message);
-	} catch (error) {
-		console.error(`Failed to send message to channel ${channelid}: ${error}`);
+	for (const channelid of channelids) {
+		try {
+			const channelObj = await client.channels.fetch(channelid);
+			await channelObj.send(message);
+		} catch (error) {
+			console.error(`Failed to send message to channel ${channelid}: ${error}`);
+		}
 	}
 }
 
