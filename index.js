@@ -10,11 +10,23 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const channelids = process.env.CHANNEL_IDS.split(",");
 
 export async function sendToNotificationChannels({description = '', author = '', title = '', titleUrl = '', color = '', footer = ''}) {
-	for (const channelid of channelids) {
+	function convertColorStringToInt(colorString) {
+		if (colorString.startsWith('#')) {
+		  colorString = colorString.substring(1);
+			const colorInt = parseInt(colorString, 16);
+		
+			return colorInt;
+		}
+		else {
+			return colorString;
+		}
+	  }
+	
+	  for (const channelid of channelids) {
 		try {
 			const channelObj = await client.channels.fetch(channelid);
 			const embed = {
-				color: color || null,
+				color: convertColorStringToInt(color) || null,
 				title: title || null,
 				url: titleUrl || null,
 				author: {name: author || null},
