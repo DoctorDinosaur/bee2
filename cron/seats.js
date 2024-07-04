@@ -32,13 +32,32 @@ export async function task(sendToNotificationChannels) {
             // winnerFlash has changed into new data containing winner
             if (winnerFlash !== null && previousWinnerFlash === null) {
                 console.log(`New winner found in ${card.title}`);
+                let code = card.href.split("/").pop();
+                let constituencyData = await getConstituencyDataByCode(code);
+
+                // Construct embed fields
+                let fields = [];
+                for (let scorecard of constituencyData.scoreboard.groups[0].scorecards) {
+                    let party = scorecard.superTitle;
+                    let candidate = scorecard.title;
+                    let votes = scorecard.dataColumnsFormatted[0][0];
+                    let percentage = scorecard.dataColumnsFormatted[0][1];
+                    let change = scorecard.dataColumnsFormatted[0][2];
+                    fields.push({
+                        name: party,
+                        value: `${candidate}\nVotes: ${votes}\nShare: ${percentage} (${change})`
+                    });
+                }
+
+                    
                 sendToNotificationChannels({
                     author: 'UK General Election 2024', 
                     title: `Result: ${card.title}`, 
                     titleUrl: `https://www.bbc.co.uk${card.href}`, 
                     color: winnerFlash.newColour || '', 
                     description: winnerFlash.flash, 
-                    footer: 'BBC Data'})
+                    footer: 'BBC Data',
+                    fields: fields})
             }
         }
     }

@@ -78,6 +78,6 @@ for (const file of cronFiles) {
 
 client.login(process.env.DISCORD_TOKEN);
 
-client.on(Events.ClientReady, () => {
-	sendToNotificationChannels({ title: 'Bot started. Ready to announce election results.' });
-});
+//client.on(Events.ClientReady, () => {
+//	sendToNotificationChannels({ title: 'Bot started. Ready to announce election results.' });
+//});
