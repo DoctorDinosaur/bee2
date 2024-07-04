@@ -9,11 +9,21 @@ const __dirname = import.meta.dirname;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const channelids = process.env.CHANNEL_IDS.split(",");
 
-export async function sendToNotificationChannels(message) {	
+export async function sendToNotificationChannels(description, author = '', title = '', titleUrl = '', color = '', footer = '' }) {
 	for (const channelid of channelids) {
 		try {
 			const channelObj = await client.channels.fetch(channelid);
-			await channelObj.send(message);
+			const embed = {
+				color: color || null,
+				title: title || null,
+				url: titleUrl || null,
+				author: {name: author || null},
+				description: description,
+				footer: {text: footer || null},
+				timestamp: new Date()
+			};
+			await channelObj.send({embeds: [embed]});
+
 		} catch (error) {
 			console.error(`Failed to send message to channel ${channelid}: ${error}`);
 		}
