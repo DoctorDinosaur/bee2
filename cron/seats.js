@@ -1,4 +1,4 @@
-import { getConstituencyData } from "../util/bbc.js";
+import { getConstituencyData, getConstituencyDataByCode } from "../util/bbc.js";
 import { state } from "../util/state.js";
 
 export const name = "seats";
