@@ -16,7 +16,7 @@ export async function task(sendToNotificationChannels) {
 
     if (data.campaignMode === false && previous_data.campaignMode === true) {
         console.log("Campaign mode has ended");
-        sendToNotificationChannels({description: "## Campaign mode has ended, BBC Data"});
+        sendToNotificationChannels({description: '## Campaign mode has ended, BBC Data'});
     }
 
     if (!data.groups) {
