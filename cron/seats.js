@@ -45,7 +45,8 @@ export async function task(sendToNotificationChannels) {
                     let change = scorecard.dataColumnsFormatted[0][2];
                     fields.push({
                         name: party,
-                        value: `${candidate}\nVotes: ${votes}\nShare: ${percentage} (${change})`
+                        value: `${candidate}\nVotes: ${votes}\nShare: ${percentage} (${change})`,
+                        inline: true
                     });
                 }
 
