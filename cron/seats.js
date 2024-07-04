@@ -32,12 +32,13 @@ export async function task(sendToNotificationChannels) {
             // winnerFlash has changed into new data containing winner
             if (winnerFlash !== null && previousWinnerFlash === null) {
                 console.log(`New winner found in ${card.title}`);
-                sendToNotificationChannels(author=winnerFlash.flashBold || '', 
-                    title=`Result: ${card.title}`, 
-                    titleUrl=card.href, 
-                    color=winnerFlash.newColour || '', 
-                    description=winnerFlash.flash, 
-                    footer='Result Announced')
+                sendToNotificationChannels({
+                    author: winnerFlash.flashBold || '', 
+                    title: `Result: ${card.title}`, 
+                    titleUrl: card.href, 
+                    color: winnerFlash.newColour || '', 
+                    description: winnerFlash.flash, 
+                    footer: 'Result Announced'})
             }
         }
     }
