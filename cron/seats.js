@@ -33,12 +33,12 @@ export async function task(sendToNotificationChannels) {
             if (winnerFlash !== null && previousWinnerFlash === null) {
                 console.log(`New winner found in ${card.title}`);
                 sendToNotificationChannels({
-                    author: winnerFlash.flashBold || '', 
+                    author: 'Result Announced', 
                     title: `Result: ${card.title}`, 
                     titleUrl: card.href, 
                     color: winnerFlash.newColour || '', 
                     description: winnerFlash.flash, 
-                    footer: 'Result Announced'})
+                    footer: 'UK General Election 2024'})
             }
         }
     }
