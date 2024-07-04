@@ -9,7 +9,7 @@ const __dirname = import.meta.dirname;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const channelids = process.env.CHANNEL_IDS.split(",");
 
-export async function sendToNotificationChannels(description, author = '', title = '', titleUrl = '', color = '', footer = '' }) {
+export async function sendToNotificationChannels(description, author = '', title = '', titleUrl = '', color = '', footer = '') {
 	for (const channelid of channelids) {
 		try {
 			const channelObj = await client.channels.fetch(channelid);
