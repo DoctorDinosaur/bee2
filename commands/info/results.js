@@ -60,7 +60,7 @@ export async function execute(interaction) {
         otherSwing = `+${otherSwing}`;
     }
     else {
-        otherSwing = `${otherSwing}`;
+        otherSwing = `${otherSwing.toFixed(1)}`;
     }
 
     fields.push({
