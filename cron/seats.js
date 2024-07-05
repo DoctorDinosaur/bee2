@@ -57,7 +57,7 @@ export async function task(sendToNotificationChannels) {
                     titleUrl: `https://www.bbc.co.uk${card.href}`, 
                     color: winnerFlash.newColour || '', 
                     description: winnerFlash.flash, 
-                    footer: 'BBC Data',
+                    footer: 'BBC Data - /results for totals',
                     fields: fields})
             }
         }
