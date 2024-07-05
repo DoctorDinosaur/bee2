@@ -56,6 +56,13 @@ export async function execute(interaction) {
     otherVotes = formatNumber(otherVotes);
     otherShare = formatPercentage(otherShare);
 
+    if (otherSwing > 0) {
+        otherSwing = `+${formatPercentage(otherSwing)}`;
+    }
+    else {
+        otherSwing = `${formatPercentage(otherSwing)}`;
+    }
+
     fields.push({
         name: "Other",
         value: `Seats: ${otherSeats}\nVotes: ${otherVotes} (${otherShare}, ${otherSwing})`,
