@@ -59,7 +59,7 @@ export async function execute(interaction) {
     otherShare = formatPercentage(otherShare);
 
     if (otherSwing > 0) {
-        otherSwing = `+${otherSwing}`;
+        otherSwing = `+${otherSwing.toFixed(1)}`;
     }
     else {
         otherSwing = `${otherSwing.toFixed(1)}`;
