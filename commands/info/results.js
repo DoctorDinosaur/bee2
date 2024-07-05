@@ -19,6 +19,8 @@ export async function execute(interaction) {
 
     let scorecards = data.scoreboard.groups[0].scorecards;
 
+    let status = data.scoreboard.status.message;
+
     let fields = [];
     let otherSeats = 0;
     let otherVotes = 0;
@@ -72,7 +74,8 @@ export async function execute(interaction) {
     let embed = {
         title: "Latest Election Results",
         url: "https://www.bbc.co.uk/news/election/2024/uk/results",
-        fields: fields
+        fields: fields,
+        description: status,
     };
 
     await interaction.reply({embeds: [embed], ephemeral: true});
