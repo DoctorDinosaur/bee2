@@ -71,6 +71,7 @@ export async function execute(interaction) {
 
     let embed = {
         title: "Latest Election Results",
+        url: "https://www.bbc.co.uk/news/election/2024/uk/results",
         fields: fields
     };
 
