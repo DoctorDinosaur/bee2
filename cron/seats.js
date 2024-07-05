@@ -37,7 +37,7 @@ export async function task(sendToNotificationChannels) {
 
                 // Construct embed fields
                 let fields = [];
-                for (let scorecard of constituencyData.scoreboard.groups[0].scorecards) {
+                for (let scorecard of constituencyData.scoreboard.groups[0].scorecards.slice(0, 3)) {
                     let party = scorecard.superTitle;
                     let candidate = scorecard.title;
                     let votes = scorecard.dataColumnsFormatted[0][0];
