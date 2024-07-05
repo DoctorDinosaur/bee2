@@ -9,9 +9,7 @@ const __dirname = import.meta.dirname;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const channelids = process.env.CHANNEL_IDS.split(",");
 
-client.commands = new Collection();
-
-export async function sendToNotificationChannels({description = '', author = '', title = '', titleUrl = '', color = '', footer = ''}) {
+export async function sendToNotificationChannels({description = '', author = '', title = '', titleUrl = '', color = '', footer = '', fields = []}) {
 	function convertColorStringToInt(colorString) {
 		if (colorString.startsWith('#')) {
 		  colorString = colorString.substring(1);
@@ -34,30 +32,13 @@ export async function sendToNotificationChannels({description = '', author = '',
 				author: {name: author || null},
 				description: description || null,
 				footer: {text: footer || null},
-				timestamp: new Date()
+				timestamp: new Date(),
+				fields: fields || []
 			};
 			await channelObj.send({embeds: [embed]});
 
 		} catch (error) {
 			console.error(`Failed to send message to channel ${channelid}: ${error}`);
-		}
-	}
-}
-
-const foldersPath = path.join(__dirname, "commands");
-const folders = fs.readdirSync(foldersPath);
-
-for (const folder of folders) {
-    const commandsPath = path.join(foldersPath, folder);
-	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith(".js"));
-	for (const file of commandFiles) {
-		const filePath = path.join(commandsPath, file);
-		const { data, execute, autocomplete } = await import("file://" + filePath);
-		
-        if (data && execute) {
-			client.commands.set(data.name, { data, execute, autocomplete });
-		} else {
-			console.log(`[WARN] The command at ${filePath} is missing required "data" or "execute" property.`);
 		}
 	}
 }
@@ -98,6 +79,6 @@ for (const file of cronFiles) {
 
 client.login(process.env.DISCORD_TOKEN);
 
-client.on(Events.ClientReady, () => {
-	sendToNotificationChannels({ title: 'Bot started. Ready to announce election results.' });
-});
+//client.on(Events.ClientReady, () => {
+//	sendToNotificationChannels({ title: 'Bot started. Ready to announce election results.' });
+//});
