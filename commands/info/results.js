@@ -57,10 +57,10 @@ export async function execute(interaction) {
     otherShare = formatPercentage(otherShare);
 
     if (otherSwing > 0) {
-        otherSwing = `+${formatPercentage(otherSwing)}`;
+        otherSwing = `+${otherSwing}`;
     }
     else {
-        otherSwing = `${formatPercentage(otherSwing)}`;
+        otherSwing = `${otherSwing}`;
     }
 
     fields.push({
