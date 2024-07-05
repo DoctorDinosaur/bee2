@@ -7,8 +7,7 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction) {
     console.log("Executing results command");
-    try {
-        let data = await getScoreboardData();
+    let data = await getScoreboardData();
 
     let scorecards = data.scoreboard.groups[0].scorecards;
 
@@ -33,9 +32,4 @@ export async function execute(interaction) {
     };
 
     await interaction.reply({embeds: [embed]});
-    }
-    catch (error) {
-        console.error(`Failed to get election results: ${error}`);
-        await interaction.reply("Failed to get election results");
-    }
 }
