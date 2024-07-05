@@ -1,6 +1,14 @@
 import { SlashCommandBuilder } from "discord.js";
 import { getScoreboardData } from "../../util/bbc.js";
 
+function formatNumber(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function formatPercentage(number) {
+    return `${number.toFixed(1)}%`;
+}
+
 export const data = new SlashCommandBuilder()
     .setName("results")
     .setDescription("Get the latest election results");
@@ -33,16 +41,17 @@ export async function execute(interaction) {
 
     for (let i = 5; i < scorecards.length; i++) {
         let scorecard = scorecards[i];
-        let seats = scorecard.dataColumnsFormatted[0][0];
-        let votes = scorecard.dataColumnsFormatted[0][2];
+        let seats = scorecard.dataColumns[0][0];
+        let votes = scorecard.dataColumns[0][2];
         let share = scorecard.dataColumns[0][3];
         otherSeats += seats;
         otherVotes += votes;
         otherShare += share;
     }
 
-    // Format other share, add % sign
-    otherShare = otherShare.toFixed(1) + "%";
+    otherSeats = formatNumber(otherSeats);
+    otherVotes = formatNumber(otherVotes);
+    otherShare = formatPercentage(otherShare);
 
     fields.push({
         name: "Other",
