@@ -12,8 +12,9 @@ export async function execute(interaction) {
     let scorecards = data.scoreboard.groups[0].scorecards;
 
     let fields = [];
-    for (let scorecard of scorecards) {
-        let party = scorecard.title
+    for (let i = 0; i < Math.min(scorecards.length, 25); i++) {
+        let scorecard = scorecards[i];
+        let party = scorecard.title;
         let seats = scorecard.dataColumnsFormatted[0][0];
         let seatsChange = scorecard.dataColumnsFormatted[0][1];
         let votes = scorecard.dataColumnsFormatted[0][2];
