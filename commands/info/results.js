@@ -6,6 +6,7 @@ export const data = new SlashCommandBuilder()
     .setDescription("Get the latest election results");
 
 export async function execute(interaction) {
+    console.log("Executing results command");
     try {
         let data = await getScoreboardData();
 
