@@ -12,7 +12,11 @@ export async function execute(interaction) {
     let scorecards = data.scoreboard.groups[0].scorecards;
 
     let fields = [];
-    for (let i = 0; i < Math.min(scorecards.length, 25); i++) {
+    let otherSeats = 0;
+    let otherVotes = 0;
+    let otherShare = 0;
+
+    for (let i = 0; i < Math.min(scorecards.length, 5); i++) {
         let scorecard = scorecards[i];
         let party = scorecard.title;
         let seats = scorecard.dataColumnsFormatted[0][0];
@@ -26,6 +30,25 @@ export async function execute(interaction) {
             inline: true
         });
     }
+
+    for (let i = 5; i < scorecards.length; i++) {
+        let scorecard = scorecards[i];
+        let seats = scorecard.dataColumnsFormatted[0][0];
+        let votes = scorecard.dataColumnsFormatted[0][2];
+        let share = scorecard.dataColumns[0][3];
+        otherSeats += seats;
+        otherVotes += votes;
+        otherShare += share;
+    }
+
+    // Format other share, add % sign
+    otherShare = otherShare.toFixed(1) + "%";
+
+    fields.push({
+        name: "Other",
+        value: `Seats: ${otherSeats}\nVotes: ${otherVotes} (${otherShare})`,
+        inline: true
+    });
 
     let embed = {
         title: "Latest Election Results",
