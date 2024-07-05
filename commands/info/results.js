@@ -23,6 +23,7 @@ export async function execute(interaction) {
     let otherSeats = 0;
     let otherVotes = 0;
     let otherShare = 0;
+    let otherSwing = 0.0;
 
     for (let i = 0; i < Math.min(scorecards.length, 5); i++) {
         let scorecard = scorecards[i];
@@ -44,9 +45,11 @@ export async function execute(interaction) {
         let seats = scorecard.dataColumns[0][0];
         let votes = scorecard.dataColumns[0][2];
         let share = scorecard.dataColumns[0][3];
+        let swing = scorecard.dataColumns[0][4];
         otherSeats += seats;
         otherVotes += votes;
         otherShare += share;
+        otherSwing += swing;
     }
 
     otherSeats = formatNumber(otherSeats);
@@ -55,7 +58,7 @@ export async function execute(interaction) {
 
     fields.push({
         name: "Other",
-        value: `Seats: ${otherSeats}\nVotes: ${otherVotes} (${otherShare})`,
+        value: `Seats: ${otherSeats}\nVotes: ${otherVotes} (${otherShare}, ${otherSwing})`,
         inline: true
     });
 
