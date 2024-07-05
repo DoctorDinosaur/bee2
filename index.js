@@ -9,6 +9,8 @@ const __dirname = import.meta.dirname;
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 const channelids = process.env.CHANNEL_IDS.split(",");
 
+client.commands = new Collection();
+
 export async function sendToNotificationChannels({description = '', author = '', title = '', titleUrl = '', color = '', footer = '', fields = []}) {
 	function convertColorStringToInt(colorString) {
 		if (colorString.startsWith('#')) {
@@ -43,7 +45,23 @@ export async function sendToNotificationChannels({description = '', author = '',
 	}
 }
 
+const foldersPath = path.join(__dirname, "commands");
+const folders = fs.readdirSync(foldersPath);
 
+for (const folder of folders) {
+    const commandsPath = path.join(foldersPath, folder);
+	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith(".js"));
+	for (const file of commandFiles) {
+		const filePath = path.join(commandsPath, file);
+		const { data, execute, autocomplete } = await import("file://" + filePath);
+		
+        if (data && execute) {
+			client.commands.set(data.name, { data, execute, autocomplete });
+		} else {
+			console.log(`[WARN] The command at ${filePath} is missing required "data" or "execute" property.`);
+		}
+	}
+}
 
 const eventsPath = path.join(__dirname, "events");
 const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith(".js"));

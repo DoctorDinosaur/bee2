@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from "discord.js";
-import { getScoreboardData } from "../util/bbc.js";
+import { getScoreboardData } from "../../util/bbc.js";
 
 export const data = new SlashCommandBuilder()
     .setName("results")
