@@ -1,5 +1,5 @@
 # Description
-A discord bot that announces UK general election results, as they come in.
+A discord bot that announces UK general election results, as they come in. Thrown together during the night.
 
 Announces to channel IDs specified in .env
 
