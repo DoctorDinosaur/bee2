@@ -2,6 +2,7 @@
 A discord bot that announces UK general election results, as they come in.
 
 Announces to channel IDs specified in .env
+
 Includes a /results command, which posts ephemerally the current votes/seat counts for the top 5 parties + others. (Requires slash deployment with deploy.json)
 
 Scrapes the BBC for results.
